@@ -1,5 +1,4 @@
 #include "ArgParser.h"
-#include <map>
 
 using namespace std;
 
@@ -13,7 +12,7 @@ bool ArgParser::hasOption(const string& flag) const {
 }
 
 
-bool ArgParser::readFlag(const std::string& flag, std::map<bool*, int>& prevPriorities) const
+bool ArgParser::readFlag(const string& flag, map<bool*, int>& prevPriorities) const
 {
   {
 	auto flag_itr = flags.find(flag);
@@ -43,7 +42,7 @@ bool ArgParser::readFlag(const std::string& flag, std::map<bool*, int>& prevPrio
   }
   return false;
 }
-bool ArgParser::readOption(const std::string& flag, const std::string& option) const
+bool ArgParser::readOption(const string& flag, const string& option) const
 {
   {
 	auto itr = string_options.find(flag);
@@ -79,55 +78,55 @@ bool ArgParser::readOption(const std::string& flag, const std::string& option) c
 	  }
 	}
   }
-  catch (std::invalid_argument e) {}
-  catch (std::range_error e) {}
+  catch (invalid_argument e) {}
+  catch (range_error e) {}
   return false;
 }
 #undef has
 
-ArgParser& ArgParser::assign(const std::string& flag, bool& ref, int priority) {
+ArgParser& ArgParser::assign(const string& flag, bool& ref, int priority) {
   if (hasFlag(flag)) {
-	throw std::runtime_error("Duplicated flag: " + flag);
+	throw runtime_error("Duplicated flag: " + flag);
   }
   flags[flag] = { &ref, priority };
   return *this;
 }
 
-ArgParser& ArgParser::assignFlagDisabler(const std::string& flag, bool& ref, int priority) {
+ArgParser& ArgParser::assignFlagDisabler(const string& flag, bool& ref, int priority) {
   if (hasFlag(flag)) {
-	throw std::runtime_error("Duplicated flag: " + flag);
+	throw runtime_error("Duplicated flag: " + flag);
   }
   flagDisablers[flag] = { &ref, priority };
   return *this;
 }
 
-ArgParser& ArgParser::assign(const std::string& flag, std::string& ref) {
+ArgParser& ArgParser::assign(const string& flag, string& ref) {
   if (hasOption(flag)) {
-	throw std::runtime_error("Duplicated option: " + flag);
+	throw runtime_error("Duplicated option: " + flag);
   }
   string_options[flag] = &ref;
   return *this;
 }
 
-ArgParser& ArgParser::assign(const std::string& flag, int& ref) {
+ArgParser& ArgParser::assign(const string& flag, int& ref) {
   if (hasOption(flag)) {
-	throw std::runtime_error("Duplicated option: " + flag);
+	throw runtime_error("Duplicated option: " + flag);
   }
   int_options[flag] = &ref;
   return *this;
 }
 
-ArgParser& ArgParser::assign(const std::string& flag, std::vector<int>& ref) {
+ArgParser& ArgParser::assign(const string& flag, vector<int>& ref) {
   if (hasOption(flag)) {
-	throw std::runtime_error("Duplicated option: " + flag);
+	throw runtime_error("Duplicated option: " + flag);
   }
   int_vector_options[flag] = &ref;
   return *this;
 }
 
-ArgParser& ArgParser::assign(const std::string& flag, std::vector<std::string>& ref) {
+ArgParser& ArgParser::assign(const string& flag, vector<string>& ref) {
   if (hasOption(flag)) {
-	throw std::runtime_error("Duplicated option: " + flag);
+	throw runtime_error("Duplicated option: " + flag);
   }
   string_vector_options[flag] = &ref;
   return *this;

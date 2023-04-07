@@ -1,6 +1,6 @@
 #include "MimeMapper.h"
 
-MimeMapper MimeMapper::createDefault()
+MimeMapper *MimeMapper::createDefault()
 {
 	std::unordered_map<std::string, std::string> extensionToMimeMap = {
 		{"123", "application/vnd.lotus-1-2-3"},
@@ -2195,5 +2195,5 @@ MimeMapper MimeMapper::createDefault()
 		{"video/x-smv", "smv"},
 		{"x-conference/x-cooltalk", "ice"}
 	};
-	return MimeMapper(std::move(extensionToMimeMap), std::move(mimeToExtensionMap));
+	return new MimeMapper(std::move(extensionToMimeMap), std::move(mimeToExtensionMap));
 }

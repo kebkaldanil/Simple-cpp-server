@@ -44,7 +44,7 @@ public:
 	MimeMapper();
 	MimeMapper(const MimeMapper &src);
 	MimeMapper(MimeMapper &&src) noexcept;
-	static MimeMapper createDefault();
+	static MimeMapper* createDefault();
 	std::string getMime(const std::string& path) const override;
 	std::string getExtension(const std::string& mime) const override;
 	bool addMapping(const std::string& path, const std::string& mime, ForceUpdate forceUpdate = ForceUpdate::Both) override;
